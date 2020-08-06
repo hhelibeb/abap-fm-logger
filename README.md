@@ -28,7 +28,7 @@ FUNCTION zib_iqs_subassembly_get_test.
   /afl/log_init.
 
 **optional, you can specify at most 3 fields for search.
-  /afl/set_custom_fields 'cust field1' 'cust field2' 'cust field3'. "optional
+  /afl/set_custom_fields 'cust field1' 'cust field2' 'cust field3'. 
 
 **optional, you can save a status code and message text for search.
   /afl/set_status 'S' 'message'.
