@@ -22,7 +22,7 @@ INCLUDE zafl_macros.
 ```
 2, Call the macros on demand in the function.
 ```abap
-FUNCTION zib_iqs_subassembly_get_test.
+FUNCTION z_fm.
   
 **initialize logger. It should be always on the top of the FUNCTION.
   /afl/log_init.
@@ -39,7 +39,7 @@ FUNCTION zib_iqs_subassembly_get_test.
 ENDFUNCTION.
 ```
 ## Configuration
-Table ZAFL_CONFIG allows you do some basic configuration.
+Table ```ZAFL_CONFIG``` allows you do some basic configuration.
 
 - FNAME: Name of Function Module
 - ENABLED: If checked, enable log function.
