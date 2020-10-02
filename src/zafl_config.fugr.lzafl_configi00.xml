@@ -4,9 +4,9 @@
   <asx:values>
    <PROGDIR>
     <NAME>LZAFL_CONFIGI00</NAME>
+    <SQLX>X</SQLX>
     <SUBC>I</SUBC>
     <RLOAD>E</RLOAD>
-    <UCCHECK>X</UCCHECK>
    </PROGDIR>
   </asx:values>
  </asx:abap>

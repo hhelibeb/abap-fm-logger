@@ -4,7 +4,7 @@ DATA: _log TYPE zafl_log.
 
 INCLUDE zafl_macros.
 
-SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-t00.
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-t00.
 
 SELECT-OPTIONS: s_fm FOR _log-fname NO INTERVALS NO-EXTENSION.
 SELECT-OPTIONS: s_guid FOR _log-guid.
@@ -14,18 +14,18 @@ SELECT-OPTIONS: s_cf3 FOR _log-cust_field3.
 SELECT-OPTIONS: s_status FOR _log-status NO INTERVALS.
 SELECTION-SCREEN END OF BLOCK b1.
 
-SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE text-t01.
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE TEXT-t01.
 SELECTION-SCREEN BEGIN OF LINE .
-SELECTION-SCREEN COMMENT 1(20) text-t02 FOR FIELD p_dstart.
+SELECTION-SCREEN COMMENT 1(20) TEXT-t02 FOR FIELD p_dstart.
 PARAMETERS: p_dstart TYPE edidc-upddat DEFAULT sy-datum.
-SELECTION-SCREEN COMMENT 35(20) text-t03 FOR FIELD p_dend.
+SELECTION-SCREEN COMMENT 35(20) TEXT-t03 FOR FIELD p_dend.
 PARAMETERS: p_dend TYPE edidc-upddat.
 SELECTION-SCREEN END OF LINE.
 
 SELECTION-SCREEN BEGIN OF LINE .
-SELECTION-SCREEN COMMENT 1(20) text-t04 FOR FIELD p_tstart.
+SELECTION-SCREEN COMMENT 1(20) TEXT-t04 FOR FIELD p_tstart.
 PARAMETERS: p_tstart TYPE edidc-updtim DEFAULT '000000'.
-SELECTION-SCREEN COMMENT 35(20) text-t05 FOR FIELD p_tend.
+SELECTION-SCREEN COMMENT 35(20) TEXT-t05 FOR FIELD p_tend.
 PARAMETERS: p_tend TYPE edidc-updtim DEFAULT '235959'.
 SELECTION-SCREEN END OF LINE.
 
@@ -53,7 +53,7 @@ CLASS lcl_handle_events IMPLEMENTATION.
   "on_double_click
 
   METHOD on_link_click.
-    PERFORM show_cell_info USING 0 row column text-i06.
+    PERFORM show_cell_info USING 0 row column TEXT-i06.
   ENDMETHOD.                    "on_single_click
 ENDCLASS.
 
@@ -175,6 +175,8 @@ FORM display.
   PERFORM set_column USING ''  lr_cols 'MESSAGE'     'Message' .
   PERFORM set_column USING 'X' lr_cols 'IMPORT'      'Import Data' .
   PERFORM set_column USING 'X' lr_cols 'EXPORT'      'Export Data' .
+  PERFORM set_column USING 'X' lr_cols 'TABLE_IN'    'Tables In ' .
+  PERFORM set_column USING 'X' lr_cols 'TABLE_OUT'   'Tables Out' .
 
 
 
@@ -219,7 +221,28 @@ FORM handle_user_command  USING  i_ucomm TYPE salv_de_function.
 
   CASE i_ucomm.
     WHEN 'PROCESS'.
+      IF zcl_afl_utilities=>is_prd( ).
+        DATA: ans TYPE c.
+        CALL FUNCTION 'POPUP_TO_CONFIRM'
+          EXPORTING
+            titlebar              = 'Confirm'(m01)
+            text_question         = 'You have called an IDoc test transaction in a client flagged as "Productive".'(m02)
+            text_button_1         = 'OK'
+            icon_button_1         = 'ICON_CHECKED'
+            text_button_2         = 'CANCEL'
+            icon_button_2         = 'ICON_CANCEL'
+            display_cancel_button = ' '
+            popup_type            = 'ICON_MESSAGE_ERROR'
+          IMPORTING
+            answer                = ans.
+        IF ans = 2.
+          RETURN.
+        ENDIF.
+      ENDIF.
       PERFORM process_selected_rows.
+    WHEN 'REFRESH'.
+      PERFORM get_data.
+      gr_alv->refresh( ).
     WHEN OTHERS.
   ENDCASE.
 
