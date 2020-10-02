@@ -273,11 +273,11 @@
       <PROGRAM>SAPLZAFL_CONFIG</PROGRAM>
       <SCREEN>0001</SCREEN>
       <LANGUAGE>E</LANGUAGE>
-      <DESCRIPT>View maint: Overview screen ZAFL_CONFIG</DESCRIPT>
+      <DESCRIPT>View Maintenance: Overview Screen ZAFL_CONFIG</DESCRIPT>
       <TYPE>N</TYPE>
       <NEXTSCREEN>0001</NEXTSCREEN>
       <LINES>061</LINES>
-      <COLUMNS>128</COLUMNS>
+      <COLUMNS>150</COLUMNS>
      </HEADER>
      <CONTAINERS>
       <RPY_DYCATT>
@@ -290,7 +290,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>125</LENGTH>
+       <LENGTH>148</LENGTH>
        <HEIGHT>059</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
@@ -380,7 +380,7 @@
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
-       <VISLENGTH>030</VISLENGTH>
+       <VISLENGTH>026</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -397,7 +397,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>045</LENGTH>
-       <VISLENGTH>007</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
@@ -412,7 +412,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>045</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
@@ -423,11 +423,41 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-IMPORT</NAME>
-       <TEXT>IMPORT</TEXT>
+       <TEXT>IMPORT_______________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>006</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <LENGTH>045</LENGTH>
+       <VISLENGTH>007</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>*ZAFL_CONFIG-TABLE_IN</NAME>
+       <TEXT>TABLE_IN_______________________________________</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>005</COLUMN>
+       <LENGTH>047</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>*ZAFL_CONFIG-TABLE_OUT</NAME>
+       <TEXT>TABLE_OUT______________________________________</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>006</COLUMN>
+       <LENGTH>047</LENGTH>
+       <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
@@ -440,7 +470,7 @@
        <NAME>*ZAFL_CONFIG-CUST_NAME1</NAME>
        <TEXT>Custom_Field1_Name______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>007</COLUMN>
        <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -455,10 +485,10 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-CUST_NAME2</NAME>
-       <TEXT>Custom_Field2_Name_______________________</TEXT>
+       <TEXT>Custom_Field2_Name______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>006</COLUMN>
-       <LENGTH>041</LENGTH>
+       <COLUMN>008</COLUMN>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -472,10 +502,10 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-CUST_NAME3</NAME>
-       <TEXT>Custom_Field3_Name_______________________</TEXT>
+       <TEXT>Custom_Field3_Name______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
-       <LENGTH>041</LENGTH>
+       <COLUMN>009</COLUMN>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -504,10 +534,11 @@
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAFL_CONFIG-FNAME</NAME>
        <TEXT>______________________________</TEXT>
+       <ROLLING>X</ROLLING>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>030</LENGTH>
-       <VISLENGTH>030</VISLENGTH>
+       <VISLENGTH>026</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>KEY</GROUP1>
        <FORMAT>CHAR</FORMAT>
@@ -525,7 +556,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>007</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -542,7 +573,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -559,7 +590,41 @@
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>003</VISLENGTH>
+       <VISLENGTH>007</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
+       <INPUT_FLD>X</INPUT_FLD>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <DICT_I_VAL>X</DICT_I_VAL>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>CHECK</TYPE>
+       <NAME>ZAFL_CONFIG-TABLE_IN</NAME>
+       <LINE>001</LINE>
+       <COLUMN>005</COLUMN>
+       <LENGTH>001</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
+       <INPUT_FLD>X</INPUT_FLD>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <DICT_I_VAL>X</DICT_I_VAL>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>CHECK</TYPE>
+       <NAME>ZAFL_CONFIG-TABLE_OUT</NAME>
+       <LINE>001</LINE>
+       <COLUMN>006</COLUMN>
+       <LENGTH>001</LENGTH>
+       <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -575,7 +640,7 @@
        <NAME>ZAFL_CONFIG-CUST_NAME1</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>007</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -593,7 +658,7 @@
        <NAME>ZAFL_CONFIG-CUST_NAME2</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>006</COLUMN>
+       <COLUMN>008</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -611,7 +676,7 @@
        <NAME>ZAFL_CONFIG-CUST_NAME3</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
+       <COLUMN>009</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -676,6 +741,12 @@
        <LINE>FIELD ZAFL_CONFIG-IMPORT .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
+       <LINE>FIELD ZAFL_CONFIG-TABLE_IN .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>FIELD ZAFL_CONFIG-TABLE_OUT .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
        <LINE>FIELD ZAFL_CONFIG-CUST_NAME1 .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -726,6 +797,8 @@
       <item>1</item>
       <item>3</item>
       <item>3</item>
+      <item>4</item>
+      <item>4</item>
       <item>4</item>
       <item>4</item>
       <item>4</item>
