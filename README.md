@@ -1,6 +1,8 @@
 # abap-fm-logger
 A logger for function module (RFC)
 
+Let's work with function modules like IDoc.
+
 ABAP Version: 740 or higher
 
 ## Design Goals
