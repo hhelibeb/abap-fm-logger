@@ -53,7 +53,29 @@ CLASS lcl_handle_events IMPLEMENTATION.
   "on_double_click
 
   METHOD on_link_click.
-    PERFORM show_cell_info USING 0 row column TEXT-i06.
+
+    DATA: value TYPE string.
+
+    READ TABLE gt_log INDEX row ASSIGNING FIELD-SYMBOL(<row>).
+    IF sy-subrc = 0.
+      ASSIGN COMPONENT column OF STRUCTURE <row> TO FIELD-SYMBOL(<value>).
+      IF sy-subrc = 0.
+        value = <value>.
+      ENDIF.
+    ENDIF.
+
+    IF column = 'FNAME'.
+
+      DATA(fm_name) = CONV rs38l_fnam( value ).
+      SET PARAMETER ID 'LIB' FIELD fm_name.
+      CALL TRANSACTION 'SE37' AND SKIP FIRST SCREEN.
+
+    ELSE.
+
+      cl_demo_output=>display_json( <value> ).
+
+    ENDIF.
+
   ENDMETHOD.                    "on_single_click
 ENDCLASS.
 
@@ -164,7 +186,7 @@ FORM display.
   DATA: lr_functions TYPE REF TO cl_salv_functions.
 
   PERFORM set_column USING ''  lr_cols 'GUID'        'GUID' .
-  PERFORM set_column USING ''  lr_cols 'FNAME'       'Function Module' .
+  PERFORM set_column USING 'X' lr_cols 'FNAME'       'Function Module' .
   PERFORM set_column USING ''  lr_cols 'CUST_FIELD1' 'CUST_FIELD1' .
   PERFORM set_column USING ''  lr_cols 'CUST_FIELD2' 'CUST_FIELD2' .
   PERFORM set_column USING ''  lr_cols 'CUST_FIELD3' 'CUST_FIELD3' .
@@ -272,30 +294,5 @@ FORM process_selected_rows.
   DATA(msg) = |{ lines( lt_rows ) } records processed|.
 
   MESSAGE msg TYPE 'S'.
-
-ENDFORM.
-*&---------------------------------------------------------------------*
-*&      Form  SHOW_CELL_INFO
-*&---------------------------------------------------------------------*
-*       text
-*----------------------------------------------------------------------*
-*      -->P_0      text
-*      -->P_ROW  text
-*      -->P_COLUMN  text
-*      -->P_TEXT_I06  text
-*----------------------------------------------------------------------*
-FORM show_cell_info USING i_level  TYPE i
-                          i_row    TYPE i
-                          i_column TYPE lvc_fname
-                          i_text   TYPE string.
-
-  READ TABLE gt_log INDEX i_row ASSIGNING FIELD-SYMBOL(<row>).
-  IF sy-subrc = 0.
-    ASSIGN COMPONENT i_column OF STRUCTURE <row> TO FIELD-SYMBOL(<value>).
-    IF sy-subrc = 0.
-      cl_demo_output=>display_json( <value> ).
-    ENDIF.
-
-  ENDIF.
 
 ENDFORM.
