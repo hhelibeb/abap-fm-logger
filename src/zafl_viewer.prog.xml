@@ -478,6 +478,8 @@
       <TEXT_NAME>ICON_REFRESH</TEXT_NAME>
       <ICON_ID>@42@</ICON_ID>
       <FUN_TEXT>Refresh</FUN_TEXT>
+      <ICON_TEXT>Refresh</ICON_TEXT>
+      <INFO_TEXT>Refresh</INFO_TEXT>
      </RSMPE_FUNT>
      <RSMPE_FUNT>
       <CODE>SET_CELL</CODE>

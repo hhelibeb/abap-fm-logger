@@ -107,7 +107,7 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
         CONTINUE.
       ENDIF.
 
-      DATA(json_data) = /ui2/cl_json=>generate( json = <json_raw> ).
+      DATA(json_data) = zcl_afl_json=>generate_new( json = <json_raw> ).
       ASSIGN json_data->* TO FIELD-SYMBOL(<json_data>).
 
 
@@ -138,8 +138,8 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
       IF line_exists( data_elements[ domname = <parameter>-structure ] ).
         <data_ref> = <temp>.
       ELSE.
-        DATA(json_temp) = /ui2/cl_json=>serialize( data = <parameter_val> ).
-        /ui2/cl_json=>deserialize( EXPORTING json = json_temp CHANGING data = <data_ref> ).
+        DATA(json_temp) = zcl_afl_json=>serialize( data = <parameter_val> ).
+        zcl_afl_json=>deserialize( EXPORTING json = json_temp CHANGING data = <data_ref> ).
       ENDIF.
 
       GET REFERENCE OF <data_ref> INTO ptab_line-value.
