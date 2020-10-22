@@ -185,11 +185,24 @@ FORM display.
 
   DATA: lr_functions TYPE REF TO cl_salv_functions.
 
+  IF zcl_afl_utilities=>get_distinct_count( tab_data = gt_log field_name = 'FNAME' ) = 1.
+    SELECT SINGLE cust_name1, cust_name2, cust_name3 FROM zafl_config
+      INTO @DATA(config).
+  ENDIF.
+
+  IF config IS INITIAL.
+    config = VALUE #(
+      cust_name1 = 'CUST_FIELD1'
+      cust_name2 = 'CUST_FIELD2'
+      cust_name3 = 'CUST_FIELD3'
+    ).
+  ENDIF.
+
   PERFORM set_column USING ''  lr_cols 'GUID'        'GUID' .
   PERFORM set_column USING 'X' lr_cols 'FNAME'       'Function Module' .
-  PERFORM set_column USING ''  lr_cols 'CUST_FIELD1' 'CUST_FIELD1' .
-  PERFORM set_column USING ''  lr_cols 'CUST_FIELD2' 'CUST_FIELD2' .
-  PERFORM set_column USING ''  lr_cols 'CUST_FIELD3' 'CUST_FIELD3' .
+  PERFORM set_column USING ''  lr_cols 'CUST_FIELD1'  config-cust_name1.
+  PERFORM set_column USING ''  lr_cols 'CUST_FIELD2'  config-cust_name2.
+  PERFORM set_column USING ''  lr_cols 'CUST_FIELD3'  config-cust_name3.
   PERFORM set_column USING ''  lr_cols 'STATUS'      'Status Code' .
   PERFORM set_column USING ''  lr_cols 'TIMESTAMP'   'Timestamp' .
   PERFORM set_column USING ''  lr_cols 'TIME_COST'   'Time Cost' .
@@ -201,12 +214,10 @@ FORM display.
   PERFORM set_column USING 'X' lr_cols 'TABLE_OUT'   'Tables Out' .
 
 
-
   DATA(lr_events) = gr_alv->get_event( ).
-*... §6.1 register to the event USER_COMMAND
+
   SET HANDLER gr_events->on_user_command FOR lr_events.
 
-*... §6.3 register to the event LINK_CLICK
   SET HANDLER gr_events->on_link_click FOR lr_events.
 
 
@@ -217,10 +228,10 @@ ENDFORM.
 FORM set_column  USING  i_hotspot TYPE xfeld
                         pr_cols TYPE REF TO cl_salv_columns
                         VALUE(fname)
-                          VALUE(text).
+                        VALUE(text).
 
   DATA: lr_column TYPE REF TO cl_salv_column_table.
-*   Change the properties of the Columns KUNNR
+
   TRY.
       lr_column ?= pr_cols->get_column( fname ).
       lr_column->set_long_text( CONV #( text ) ).

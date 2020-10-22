@@ -1941,6 +1941,35 @@
        <LENGTH>14</LENGTH>
       </item>
       <item>
+       <ID>I</ID>
+       <KEY>T02</KEY>
+       <ENTRY>开始日期</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T03</KEY>
+       <ENTRY>结束日期</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T04</KEY>
+       <ENTRY>开始时间</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T05</KEY>
+       <ENTRY>结束时间</ENTRY>
+       <LENGTH>18</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>ABAP FM Log Viewer</ENTRY>
+       <LENGTH>70</LENGTH>
+      </item>
+      <item>
        <ID>S</ID>
        <KEY>P_DEND</KEY>
        <ENTRY>结束日期</ENTRY>
@@ -1962,6 +1991,42 @@
        <ID>S</ID>
        <KEY>P_TSTART</KEY>
        <ENTRY>开始时间</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CF1</KEY>
+       <ENTRY>Custom Field1</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CF2</KEY>
+       <ENTRY>Custom Field2</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_CF3</KEY>
+       <ENTRY>Custom Field3</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_FM</KEY>
+       <ENTRY>函数模块</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_GUID</KEY>
+       <ENTRY>GUID</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_STATUS</KEY>
+       <ENTRY>状态</ENTRY>
        <LENGTH>38</LENGTH>
       </item>
      </TEXTPOOL>
