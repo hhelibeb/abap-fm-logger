@@ -1,16 +1,22 @@
-CLASS zcl_afl_utilities DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AFL_UTILITIES definition
+  public
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    CLASS-METHODS re_process
-      IMPORTING
-        !guid TYPE guid .
-    CLASS-METHODS is_prd
-      RETURNING VALUE(result) TYPE abap_bool.
-
+  class-methods RE_PROCESS
+    importing
+      !GUID type GUID .
+  class-methods IS_PRD
+    returning
+      value(RESULT) type ABAP_BOOL .
+  class-methods GET_DISTINCT_COUNT
+    importing
+      !TAB_DATA type ANY TABLE
+      !FIELD_NAME type CLIKE
+    returning
+      value(COUNT) type INT4 .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -18,6 +24,29 @@ ENDCLASS.
 
 
 CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
+
+
+  METHOD get_distinct_count.
+
+    TYPES: BEGIN OF ty_temp,
+             field TYPE string,
+           END OF ty_temp.
+    DATA: count_table TYPE HASHED TABLE OF ty_temp WITH UNIQUE KEY field,
+          count_wa    LIKE LINE OF count_table.
+
+    LOOP AT tab_data ASSIGNING FIELD-SYMBOL(<wa>).
+      ASSIGN COMPONENT field_name OF STRUCTURE <wa> TO FIELD-SYMBOL(<field>).
+      IF sy-subrc <> 0.
+        RETURN.
+      ELSE.
+        count_wa-field = <field>.
+        INSERT count_wa INTO TABLE count_table.
+      ENDIF.
+    ENDLOOP.
+
+    count = lines( count_table ).
+
+  ENDMETHOD.
 
 
   METHOD is_prd.
