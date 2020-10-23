@@ -49,3 +49,6 @@ Table ```ZAFL_CONFIG``` allows you do some basic configuration.
 - IMPORT: If checked, enable log for import parameters.
 - TABLE_IN: If checked, enable log for tables parameters (At the beginning of the FM).
 - TABLE_OUT: If checked, enable log for tables parameters (At the end of the FM).
+
+## Cleaner
+You can schedule report ```ZAFL_HISTORY_CLEANER``` as a job to delete history log.
