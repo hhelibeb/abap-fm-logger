@@ -1847,9 +1847,27 @@
      <LENGTH>18</LENGTH>
     </item>
     <item>
+     <ID>I</ID>
+     <KEY>T06</KEY>
+     <ENTRY>Number of Hits</ENTRY>
+     <LENGTH>24</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>T07</KEY>
+     <ENTRY>No Limitation</ENTRY>
+     <LENGTH>23</LENGTH>
+    </item>
+    <item>
      <ID>R</ID>
      <ENTRY>ABAP FM Log Viewer</ENTRY>
      <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>PV_NOFHS</KEY>
+     <ENTRY>Number of Hits</ENTRY>
+     <LENGTH>22</LENGTH>
     </item>
     <item>
      <ID>S</ID>

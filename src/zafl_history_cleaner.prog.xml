@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>ZAFL_HISTORY_CLEANER</NAME>
+    <SUBC>1</SUBC>
+    <RLOAD>E</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>T01</KEY>
+     <ENTRY>Set up clean rules in table ZAFL_CLEANER</ENTRY>
+     <LENGTH>80</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>ABAP FM Logger History Log Cleaner</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_CHECK</KEY>
+     <ENTRY>Only Check</ENTRY>
+     <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_FM</KEY>
+     <ENTRY>Function Module</ENTRY>
+     <LENGTH>23</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>1</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>T01</KEY>
+       <ENTRY>在表 ZAFL_CLEANER 中配置日志清理规则</ENTRY>
+       <LENGTH>80</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>ABAP FM Logger History Log Cleaner</ENTRY>
+       <LENGTH>70</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_CHECK</KEY>
+       <ENTRY>测试模式</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_FM</KEY>
+       <ENTRY>函数模块</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+  </asx:values>
+ </asx:abap>
+</abapGit>
