@@ -6,7 +6,10 @@ CLASS zcl_afl_json DEFINITION
 
   PUBLIC SECTION.
 
-    METHODS generate_int REDEFINITION .
+    METHODS: generate_int_new  IMPORTING
+                                 !json          TYPE json
+                               RETURNING
+                                 VALUE(rr_data) TYPE REF TO data ..
     CLASS-METHODS generate_new IMPORTING
                                  !json          TYPE json
                                  !pretty_name   TYPE pretty_name_mode DEFAULT pretty_mode-none
@@ -23,7 +26,8 @@ ENDCLASS.
 CLASS ZCL_AFL_JSON IMPLEMENTATION.
 
 
-  METHOD generate_int.
+  METHOD generate_int_new.
+
     TYPES: BEGIN OF ts_field,
              name  TYPE string,
              value TYPE json,
@@ -84,7 +88,7 @@ CLASS ZCL_AFL_JSON IMPLEMENTATION.
               ASSIGN rr_data->* TO <struct>.
               LOOP AT lt_fields ASSIGNING <field>.
                 ASSIGN COMPONENT sy-tabix OF STRUCTURE <struct> TO <data>.
-                <data> = generate_int( <field>-value ).
+                <data> = generate_int_new( <field>-value ).
               ENDLOOP.
             CATCH cx_sy_create_data_error cx_sy_struct_creation.
           ENDTRY.
@@ -95,7 +99,7 @@ CLASS ZCL_AFL_JSON IMPLEMENTATION.
         ASSIGN rr_data->* TO <table>.
         LOOP AT lt_json INTO lv_json.
           APPEND INITIAL LINE TO <table> ASSIGNING <data>.
-          <data> = generate_int( lv_json ).
+          <data> = generate_int_new( lv_json ).
         ENDLOOP.
       WHEN OTHERS.
         IF json+offset(1) EQ `"`.
@@ -138,7 +142,7 @@ CLASS ZCL_AFL_JSON IMPLEMENTATION.
         assoc_arrays_opt = c_bool-true.
 
     TRY .
-        rr_data = lo_json->generate_int( lv_json ).
+        rr_data = lo_json->generate_int_new( lv_json ).
       CATCH cx_sy_move_cast_error.
     ENDTRY.
 
