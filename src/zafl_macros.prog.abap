@@ -50,6 +50,10 @@ DEFINE /afl/log_init.
         /afl/log_get_json 'I' /afl/log-import.
       ENDIF.
 
+      IF /afl/config-change = abap_true.
+        /afl/log_get_json 'C' /afl/log-change_in.
+      ENDIF.
+
       IF /afl/config-table_in = abap_true.
         /afl/log_get_table_json /afl/log-table_in.
       ENDIF.
@@ -127,23 +131,29 @@ DEFINE /afl/save .
 
     DATA: /afl/end_time TYPE tzntstmpl.
 
-    GET TIME.
-
-    GET TIME STAMP FIELD /afl/end_time.
-
     IF /afl/config-export = abap_true.
-        /afl/log_get_json 'E' /afl/log-export.
+      /afl/log_get_json 'E' /afl/log-export.
     ENDIF.
-
-    /afl/log-time_cost = cl_abap_tstmp=>subtract( tstmp1 = /afl/end_time tstmp2 = /afl/start_time ).
 
     IF /afl/config-table_out = abap_true.
       /afl/log_get_table_json /afl/log-table_out.
     ENDIF.
 
+    IF /afl/config-change = abap_true.
+      /afl/log_get_json 'C' /afl/log-change_out.
+    ENDIF.
+
+    GET TIME.
+
+    GET TIME STAMP FIELD /afl/end_time.
+
+    /afl/log-time_cost = cl_abap_tstmp=>subtract( tstmp1 = /afl/end_time tstmp2 = /afl/start_time ).
+
     MODIFY zafl_log FROM @/afl/log.
 
-    COMMIT WORK.
+    IF /afl/config-no_commit = abap_false.
+      COMMIT WORK.
+    ENDIF.
 
   ENDIF.
 

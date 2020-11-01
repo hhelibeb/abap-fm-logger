@@ -1,29 +1,114 @@
-class ZCL_AFL_UTILITIES definition
-  public
-  final
-  create public .
+CLASS zcl_afl_utilities DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-methods RE_PROCESS
-    importing
-      !GUID type GUID .
-  class-methods IS_PRD
-    returning
-      value(RESULT) type ABAP_BOOL .
-  class-methods GET_DISTINCT_COUNT
-    importing
-      !TAB_DATA type ANY TABLE
-      !FIELD_NAME type CLIKE
-    returning
-      value(COUNT) type INT4 .
+    CLASS-METHODS re_process
+      IMPORTING
+        !guid TYPE guid .
+    CLASS-METHODS is_prd
+      RETURNING
+        VALUE(result) TYPE abap_bool .
+    CLASS-METHODS get_distinct_count
+      IMPORTING
+        !tab_data    TYPE ANY TABLE
+        !field_name  TYPE clike
+      RETURNING
+        VALUE(count) TYPE int4 .
+    CLASS-METHODS fm_authority_check
+      IMPORTING !fm_name    TYPE rs38l_fnam
+                !buffer     TYPE abap_bool DEFAULT abap_true
+      RETURNING VALUE(pass) TYPE abap_bool.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
+
+    TYPES: BEGIN OF ty_auth_result,
+             fname TYPE zafl_config-fname,
+             pass  TYPE abap_bool,
+           END OF ty_auth_result.
+
+    CLASS-DATA: auth_results_list TYPE HASHED TABLE OF ty_auth_result WITH UNIQUE KEY fname.
+
 ENDCLASS.
 
 
 
 CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
+
+
+  METHOD fm_authority_check.
+
+    DATA: auth_result LIKE LINE OF auth_results_list.
+
+    IF buffer = abap_true.
+      auth_result = VALUE #( auth_results_list[ fname = fm_name ] OPTIONAL ).
+      IF auth_result IS NOT INITIAL.
+        pass = auth_result-pass.
+        RETURN.
+      ENDIF.
+    ENDIF.
+
+    IF auth_result IS INITIAL.
+
+      DELETE auth_results_list WHERE fname = fm_name.
+      SELECT SINGLE no_auth_check FROM zafl_config WHERE fname = @fm_name
+        INTO @DATA(no_auth_check) BYPASSING BUFFER.
+
+      IF no_auth_check = abap_true.
+        auth_result = VALUE #( fname = fm_name pass = abap_true ).
+      ELSE.
+        DATA: wa_tadir TYPE tadir,
+              area  TYPE sobj_name.
+
+        SELECT SINGLE area FROM enlfdir WHERE funcname = @fm_name INTO @area.
+        IF sy-subrc <> 0.
+          RETURN.
+        ENDIF.
+
+        CALL FUNCTION 'TR_TADIR_INTERFACE'
+          EXPORTING
+            wi_test_modus     = ' '
+            wi_read_only      = 'X'
+            wi_tadir_pgmid    = 'R3TR'
+            wi_tadir_object   = 'FUGR'
+            wi_tadir_obj_name = area
+          IMPORTING
+            new_tadir_entry   = wa_tadir
+          EXCEPTIONS
+            OTHERS            = 1.
+
+        IF sy-subrc <> 0 OR wa_tadir-devclass IS INITIAL.
+          AUTHORITY-CHECK OBJECT 'S_DEVELOP'
+                 ID 'DEVCLASS' DUMMY
+                 ID 'OBJTYPE' FIELD 'FUGR'
+                 ID 'OBJNAME' FIELD area
+                 ID 'P_GROUP' DUMMY
+                 ID 'ACTVT' FIELD '16'.
+        ELSE.
+          AUTHORITY-CHECK OBJECT 'S_DEVELOP'
+                 ID 'DEVCLASS' FIELD wa_tadir-devclass
+                 ID 'OBJTYPE' FIELD 'FUGR'
+                 ID 'OBJNAME' FIELD area
+                 ID 'P_GROUP' DUMMY
+                 ID 'ACTVT' FIELD '16'.
+        ENDIF.
+        IF sy-subrc = 0.
+          auth_result = VALUE #( fname = fm_name pass = abap_true ).
+        ELSE.
+          auth_result = VALUE #( fname = fm_name pass = abap_false ).
+        ENDIF.
+
+      ENDIF.
+    ENDIF.
+
+    pass = auth_result-pass.
+
+    INSERT auth_result INTO TABLE auth_results_list.
+
+  ENDMETHOD.
 
 
   METHOD get_distinct_count.
@@ -75,7 +160,7 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
 
     DATA: data_ref TYPE REF TO data.
 
-    SELECT SINGLE guid, fname, import, table_in
+    SELECT SINGLE guid, fname, import, change_in, table_in
       FROM zafl_log
       WHERE guid = @guid
       INTO @DATA(record).
@@ -119,11 +204,13 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
       ptab_line-kind = COND #( WHEN <parameter>-paramtype = 'E' THEN abap_func_importing
                                WHEN <parameter>-paramtype = 'I' THEN abap_func_exporting
                                WHEN <parameter>-paramtype = 'T' THEN abap_func_tables
+                               WHEN <parameter>-paramtype = 'C' THEN abap_func_changing
                                ELSE                                  ''
       ).
 
       DATA(json_field_name) = COND string( WHEN ptab_line-kind = abap_func_exporting THEN 'IMPORT'
                                            WHEN ptab_line-kind = abap_func_tables    THEN 'TABLE_IN'
+                                           WHEN ptab_line-kind = abap_func_changing  THEN 'CHANGE_IN'
                                            ELSE                                           ''
       ).
 
@@ -145,7 +232,7 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
         CONTINUE.
       ENDIF.
 
-      IF ptab_line-kind = abap_func_exporting.
+      IF ptab_line-kind = abap_func_exporting OR ptab_line-kind = abap_func_changing.
 
         CREATE DATA data_ref TYPE (<parameter>-structure).
         FIELD-SYMBOLS: <temp> TYPE any.

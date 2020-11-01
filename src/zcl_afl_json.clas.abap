@@ -2,20 +2,20 @@ CLASS zcl_afl_json DEFINITION
   PUBLIC
   INHERITING FROM /ui2/cl_json
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
   PUBLIC SECTION.
 
     METHODS: generate_int_new  IMPORTING
                                  !json          TYPE json
                                RETURNING
-                                 VALUE(rr_data) TYPE REF TO data ..
+                                 VALUE(rr_data) TYPE REF TO data.
     CLASS-METHODS generate_new IMPORTING
                                  !json          TYPE json
                                  !pretty_name   TYPE pretty_name_mode DEFAULT pretty_mode-none
                                  !name_mappings TYPE name_mappings OPTIONAL
                                RETURNING
-                                 VALUE(rr_data) TYPE REF TO data .
+                                 VALUE(rr_data) TYPE REF TO data.
 
   PROTECTED SECTION.
   PRIVATE SECTION.

@@ -277,7 +277,7 @@
       <TYPE>N</TYPE>
       <NEXTSCREEN>0001</NEXTSCREEN>
       <LINES>061</LINES>
-      <COLUMNS>150</COLUMNS>
+      <COLUMNS>152</COLUMNS>
      </HEADER>
      <CONTAINERS>
       <RPY_DYCATT>
@@ -290,7 +290,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>148</LENGTH>
+       <LENGTH>150</LENGTH>
        <HEIGHT>059</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
@@ -380,7 +380,7 @@
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
-       <VISLENGTH>026</VISLENGTH>
+       <VISLENGTH>027</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -393,13 +393,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-ENABLED</NAME>
-       <TEXT>Enable_______________________________________</TEXT>
+       <TEXT>Enable__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
-       <LENGTH>045</LENGTH>
-       <VISLENGTH>006</VISLENGTH>
+       <LENGTH>040</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -408,13 +410,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-EXPORT</NAME>
-       <TEXT>EXPORT_______________________________________</TEXT>
+       <TEXT>EXPORT__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
-       <LENGTH>045</LENGTH>
-       <VISLENGTH>006</VISLENGTH>
+       <LENGTH>040</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -423,13 +427,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-IMPORT</NAME>
-       <TEXT>IMPORT_______________________________________</TEXT>
+       <TEXT>IMPORT__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>045</LENGTH>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>007</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -438,13 +444,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-TABLE_IN</NAME>
-       <TEXT>TABLE_IN_______________________________________</TEXT>
+       <TEXT>TABLE_IN________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
-       <LENGTH>047</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <LENGTH>040</LENGTH>
+       <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -453,13 +461,66 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-TABLE_OUT</NAME>
-       <TEXT>TABLE_OUT______________________________________</TEXT>
+       <TEXT>TABLE_OUT_______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>006</COLUMN>
-       <LENGTH>047</LENGTH>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>*ZAFL_CONFIG-CHANGE</NAME>
+       <TEXT>CHANGE__________________________________</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>007</COLUMN>
+       <LENGTH>040</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>*ZAFL_CONFIG-NO_COMMIT</NAME>
+       <TEXT>No_Commit_______________________________</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>008</COLUMN>
+       <LENGTH>040</LENGTH>
+       <VISLENGTH>009</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>1</MODIFIC>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>*ZAFL_CONFIG-NO_AUTH_CHECK</NAME>
+       <TEXT>No_Auth_Check_________________________________</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>009</COLUMN>
+       <LENGTH>046</LENGTH>
+       <VISLENGTH>014</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>F</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -468,15 +529,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-CUST_NAME1</NAME>
-       <TEXT>Custom_Field1_Name______________________</TEXT>
+       <TEXT>Medium_Field_Label______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
+       <COLUMN>010</COLUMN>
        <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
-       <MODIFIC>F</MODIFIC>
+       <MODIFIC>V</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -485,15 +546,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-CUST_NAME2</NAME>
-       <TEXT>Custom_Field2_Name______________________</TEXT>
+       <TEXT>Medium_Field_Label______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>008</COLUMN>
+       <COLUMN>011</COLUMN>
        <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
-       <MODIFIC>F</MODIFIC>
+       <MODIFIC>V</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -502,15 +563,15 @@
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZAFL_CONFIG-CUST_NAME3</NAME>
-       <TEXT>Custom_Field3_Name______________________</TEXT>
+       <TEXT>Medium_Field_Label______________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>009</COLUMN>
+       <COLUMN>012</COLUMN>
        <LENGTH>040</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
-       <MODIFIC>F</MODIFIC>
+       <MODIFIC>V</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -538,7 +599,7 @@
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>030</LENGTH>
-       <VISLENGTH>026</VISLENGTH>
+       <VISLENGTH>027</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>KEY</GROUP1>
        <FORMAT>CHAR</FORMAT>
@@ -556,7 +617,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>006</VISLENGTH>
+       <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -573,7 +634,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>006</VISLENGTH>
+       <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -607,7 +668,7 @@
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>001</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -636,11 +697,62 @@
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>CHECK</TYPE>
+       <NAME>ZAFL_CONFIG-CHANGE</NAME>
+       <LINE>001</LINE>
+       <COLUMN>007</COLUMN>
+       <LENGTH>001</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
+       <INPUT_FLD>X</INPUT_FLD>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <DICT_I_VAL>X</DICT_I_VAL>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>CHECK</TYPE>
+       <NAME>ZAFL_CONFIG-NO_COMMIT</NAME>
+       <LINE>001</LINE>
+       <COLUMN>008</COLUMN>
+       <LENGTH>001</LENGTH>
+       <VISLENGTH>009</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
+       <INPUT_FLD>X</INPUT_FLD>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <DICT_I_VAL>X</DICT_I_VAL>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
+       <TYPE>CHECK</TYPE>
+       <NAME>ZAFL_CONFIG-NO_AUTH_CHECK</NAME>
+       <LINE>001</LINE>
+       <COLUMN>009</COLUMN>
+       <LENGTH>001</LENGTH>
+       <VISLENGTH>014</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
+       <INPUT_FLD>X</INPUT_FLD>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <DICT_I_VAL>X</DICT_I_VAL>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TCTRL_ZAFL_CONFIG</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZAFL_CONFIG-CUST_NAME1</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
+       <COLUMN>010</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -658,7 +770,7 @@
        <NAME>ZAFL_CONFIG-CUST_NAME2</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>008</COLUMN>
+       <COLUMN>011</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -676,7 +788,7 @@
        <NAME>ZAFL_CONFIG-CUST_NAME3</NAME>
        <TEXT>____________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>009</COLUMN>
+       <COLUMN>012</COLUMN>
        <LENGTH>020</LENGTH>
        <VISLENGTH>020</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -745,6 +857,15 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>    FIELD ZAFL_CONFIG-TABLE_OUT .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>    FIELD ZAFL_CONFIG-CHANGE .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>    FIELD ZAFL_CONFIG-NO_COMMIT .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>    FIELD ZAFL_CONFIG-NO_AUTH_CHECK .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>    FIELD ZAFL_CONFIG-CUST_NAME1 .</LINE>

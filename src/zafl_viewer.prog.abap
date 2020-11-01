@@ -221,6 +221,8 @@ FORM display.
   PERFORM set_column USING ''  lr_cols 'MESSAGE'     'Message' .
   PERFORM set_column USING 'X' lr_cols 'IMPORT'      'Import Data' .
   PERFORM set_column USING 'X' lr_cols 'EXPORT'      'Export Data' .
+  PERFORM set_column USING 'X' lr_cols 'CHANGE_IN'   'Changing In' .
+  PERFORM set_column USING 'X' lr_cols 'CHANGE_OUT'  'Changing Out' .
   PERFORM set_column USING 'X' lr_cols 'TABLE_IN'    'Tables In ' .
   PERFORM set_column USING 'X' lr_cols 'TABLE_OUT'   'Tables Out' .
 
@@ -308,12 +310,27 @@ FORM process_selected_rows.
 
     READ TABLE gt_log INDEX <row> ASSIGNING FIELD-SYMBOL(<log>).
     IF sy-subrc = 0.
+      DATA(pass) = zcl_afl_utilities=>fm_authority_check( <log>-fname ).
+      IF pass = abap_false.
+        DATA(msg) = |You are not authorized to test function module { <log>-fname }|.
+        MESSAGE msg TYPE 'S' DISPLAY LIKE 'E'.
+        RETURN.
+      ENDIF.
+    ENDIF.
+
+  ENDLOOP.
+
+
+  LOOP AT lt_rows ASSIGNING <row>.
+
+    READ TABLE gt_log INDEX <row> ASSIGNING <log>.
+    IF sy-subrc = 0.
       zcl_afl_utilities=>re_process( <log>-guid ).
     ENDIF.
 
   ENDLOOP.
 
-  DATA(msg) = |{ lines( lt_rows ) } records processed|.
+  msg = |{ lines( lt_rows ) } records processed|.
 
   MESSAGE msg TYPE 'S'.
 
