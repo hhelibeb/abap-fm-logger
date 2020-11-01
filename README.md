@@ -43,12 +43,18 @@ ENDFUNCTION.
 ## Configuration
 Table ```ZAFL_CONFIG``` allows you do some basic configuration.
 
+### Basic
 - FNAME: Name of Function Module
 - ENABLED: If checked, enable log function.
 - EXPORT: If checked, enable log for export parameters.
 - IMPORT: If checked, enable log for import parameters.
 - TABLE_IN: If checked, enable log for tables parameters (At the beginning of the FM).
 - TABLE_OUT: If checked, enable log for tables parameters (At the end of the FM).
+- CHANGE: If checked,  enable log for changing parameters (Both In and Out).
+
+### Others
+- NO_COMMIT: If checked, bypass the commit statement in ```/afl/save```.
+- NO_AUTH_CHECK: If checked, bypass the authority check statement in reprocess method.
 
 ## Cleaner
 You can schedule report ```ZAFL_HISTORY_CLEANER``` as a job to delete history log.
