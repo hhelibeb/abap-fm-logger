@@ -30,7 +30,7 @@ FUNCTION z_fm.
   /afl/log_init.
 
 **optional, you can specify at most 3 fields for search.
-  /afl/set_custom_fields 'cust field1' 'cust field2' 'cust field3'. 
+  /afl/set_custom_fields '2020' '1001' '2000000001'. 
 
 **optional, you can save a status code and message text for search.
   /afl/set_status 'S' 'message'.
