@@ -44,7 +44,14 @@ SELECTION-SCREEN END OF BLOCK no_of_hits.
 
 TYPES: ty_time_cond TYPE RANGE OF timestamp.
 
-DATA: gt_log TYPE STANDARD TABLE OF zafl_log.
+TYPES BEGIN OF ty_log.
+INCLUDE TYPE zafl_log.
+TYPES date TYPE sy-datum.
+TYPES time TYPE sy-uzeit.
+TYPES time_zone TYPE sy-zonlo.
+TYPES END OF ty_log.
+
+DATA: gt_log TYPE STANDARD TABLE OF ty_log.
 DATA: gr_alv TYPE REF TO cl_salv_table.
 
 CLASS lcl_handle_events DEFINITION.
@@ -128,8 +135,22 @@ FORM get_data.
       AND cust_field3 IN @s_cf3
       AND status      IN @s_status
       AND timestamp   IN @s_ts
-    INTO TABLE @gt_log
+    *INTO TABLE @gt_log
+    INTO CORRESPONDING FIELDS OF TABLE @gt_log
     UP TO @pv_nofhs ROWS.
+
+
+  LOOP AT gt_log ASSIGNING FIELD-SYMBOL(<fs_log>)
+                     WHERE timestamp IS NOT INITIAL.
+
+    <fs_log>-time_zone = sy-zonlo.
+
+    CONVERT TIME STAMP <fs_log>-timestamp
+            TIME ZONE  <fs_log>-time_zone
+       INTO DATE <fs_log>-date
+            TIME <fs_log>-time.
+
+  ENDLOOP.
 
 ENDFORM.
 
@@ -216,6 +237,9 @@ FORM display.
   PERFORM set_column USING ''  lr_cols 'CUST_FIELD3'  config-cust_name3.
   PERFORM set_column USING ''  lr_cols 'STATUS'      'Status Code' .
   PERFORM set_column USING ''  lr_cols 'TIMESTAMP'   'Timestamp' .
+  PERFORM set_column USING ''  lr_cols 'DATE'        'Date' .
+  PERFORM set_column USING ''  lr_cols 'TIME'        'Time' .
+  PERFORM set_column USING ''  lr_cols 'TIME_ZONE'   'Zone' .  
   PERFORM set_column USING ''  lr_cols 'TIME_COST'   'Time Cost' .
   PERFORM set_column USING ''  lr_cols 'UNAME'       'User' .
   PERFORM set_column USING ''  lr_cols 'MESSAGE'     'Message' .
