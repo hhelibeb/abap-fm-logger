@@ -135,7 +135,7 @@ FORM get_data.
       AND cust_field3 IN @s_cf3
       AND status      IN @s_status
       AND timestamp   IN @s_ts
-    *INTO TABLE @gt_log
+*INTO TABLE @gt_log
     INTO CORRESPONDING FIELDS OF TABLE @gt_log
     UP TO @pv_nofhs ROWS.
 
