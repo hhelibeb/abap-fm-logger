@@ -35,7 +35,7 @@ DEFINE /afl/log_init.
       INTO @DATA(/afl/config).
   IF sy-subrc = 0.
 
-    SELECT funcname, paramtype, pposition, parameter, structure
+    SELECT funcname, paramtype, pposition, parameter, structure, type
       FROM fupararef
       WHERE funcname = @/afl/func_name
       INTO TABLE @DATA(/afl/parameters_tab).
@@ -166,9 +166,13 @@ DEFINE /afl/log_get_table_json.
 
   LOOP AT /afl/parameters_tab ASSIGNING </alf/parameters> WHERE paramtype = 'T'.
     /afl/comp_wa-name = </alf/parameters>-parameter.
-    /afl/table_structure_type = CAST cl_abap_structdescr( cl_abap_datadescr=>describe_by_name( </alf/parameters>-structure ) ).
-    /afl/table_type = CAST cl_abap_tabledescr( cl_abap_tabledescr=>create( /afl/table_structure_type ) ).
-    /afl/comp_wa-type ?= /afl/table_type.
+    IF </alf/parameters>-type IS INITIAL.
+      /afl/table_structure_type = CAST cl_abap_structdescr( cl_abap_datadescr=>describe_by_name( </alf/parameters>-structure ) ).
+      /afl/table_type = CAST cl_abap_tabledescr( cl_abap_tabledescr=>create( /afl/table_structure_type ) ).
+      /afl/comp_wa-type ?= /afl/table_type.
+    ELSE.
+      /afl/comp_wa-type ?= cl_abap_tabledescr=>describe_by_name( </alf/parameters>-structure ).
+    ENDIF.
     APPEND /afl/comp_wa TO /afl/comp_tab.
   ENDLOOP.
 
