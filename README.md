@@ -15,7 +15,7 @@ ABAP Version: 740 or higher
 The report ```ZAFL_VIEWER``` empowers you to search logs and reprocess specific records.
 ![log report](https://github.com/hhelibeb/helloworld/blob/master/log%20report.png)
 
-## Usage
+## How to Use
 
 1, Add the include file ```ZAFL_MACROS``` which contains core function of the logger.
 ```abap
@@ -43,7 +43,7 @@ ENDFUNCTION.
 ## Configuration
 Table ```ZAFL_CONFIG```  allows for basic configuration.
 
-### Basic
+### Basic Settings
 - FNAME: Name of Function Module
 - ENABLED: If checked, log function will be enabled.
 - EXPORT: If checked, logs for export parameters will be enabled.
@@ -52,9 +52,9 @@ Table ```ZAFL_CONFIG```  allows for basic configuration.
 - TABLE_OUT: If checked, logs for tables parameters (at the end of the FM) will be enabled.
 - CHANGE: If checked, logs for changing parameters (both in and out) will be enabled.
 
-### Others
+### Additional Settings
 - NO_COMMIT: If checked, the COMMIT statement in ```/afl/save``` will be bypassed.
 - NO_AUTH_CHECK: If checked, the authority check statement in the reprocess method will be bypassed.
 
-## Cleaner
+## Log Cleaner
 Schedule the report ```ZAFL_HISTORY_CLEANER``` as a job to delete history log.
