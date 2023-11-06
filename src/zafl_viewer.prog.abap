@@ -128,17 +128,16 @@ FORM get_data.
                               s_ts.
 
   SELECT * FROM zafl_log
-    WHERE guid        IN @s_guid
-      AND fname       IN @s_fm
-      AND cust_field1 IN @s_cf1
-      AND cust_field2 IN @s_cf2
-      AND cust_field3 IN @s_cf3
-      AND status      IN @s_status
-      AND timestamp   IN @s_ts
-
-    INTO CORRESPONDING FIELDS OF TABLE @gt_log
-    UP TO @pv_nofhs ROWS.
-
+    INTO CORRESPONDING FIELDS OF TABLE gt_log
+    UP TO pv_nofhs ROWS
+    WHERE guid        IN s_guid
+      AND fname       IN s_fm
+      AND cust_field1 IN s_cf1
+      AND cust_field2 IN s_cf2
+      AND cust_field3 IN s_cf3
+      AND status      IN s_status
+      AND timestamp   IN s_ts
+.
 
   LOOP AT gt_log ASSIGNING FIELD-SYMBOL(<fs_log>)
                      WHERE timestamp IS NOT INITIAL.
@@ -239,7 +238,7 @@ FORM display.
   PERFORM set_column USING ''  lr_cols 'TIMESTAMP'   'Timestamp' .
   PERFORM set_column USING ''  lr_cols 'DATE'        'Date' .
   PERFORM set_column USING ''  lr_cols 'TIME'        'Time' .
-  PERFORM set_column USING ''  lr_cols 'TIME_ZONE'   'Zone' .  
+  PERFORM set_column USING ''  lr_cols 'TIME_ZONE'   'Zone' .
   PERFORM set_column USING ''  lr_cols 'TIME_COST'   'Time Cost' .
   PERFORM set_column USING ''  lr_cols 'UNAME'       'User' .
   PERFORM set_column USING ''  lr_cols 'MESSAGE'     'Message' .
@@ -291,7 +290,7 @@ FORM handle_user_command  USING  i_ucomm TYPE salv_de_function.
 
   CASE i_ucomm.
     WHEN 'PROCESS'.
-      IF zcl_afl_utilities=>is_prd( ).
+      IF zcl_afl_utilities=>is_prd( ) IS NOT INITIAL.
         DATA: ans TYPE c.
         CALL FUNCTION 'POPUP_TO_CONFIRM'
           EXPORTING
