@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 2020/10/23 at 17:33:12
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZAFL_CLEANER....................................*
 DATA:  BEGIN OF STATUS_ZAFL_CLEANER                  .   "state vector

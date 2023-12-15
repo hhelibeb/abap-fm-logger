@@ -59,7 +59,7 @@ DEFINE /afl/log_init.
       ENDIF.
 
       DATA: /afl/start_time TYPE tzntstmpl.
-
+      DATA: /afl/end_time TYPE tzntstmpl.
       TRY.
           /afl/log-guid = cl_system_uuid=>create_uuid_x16_static( ).
         CATCH cx_uuid_error INTO DATA(/afl/oref).
@@ -128,8 +128,6 @@ END-OF-DEFINITION.
 DEFINE /afl/save .
 
   IF /afl/log-guid IS NOT INITIAL.
-
-    DATA: /afl/end_time TYPE tzntstmpl.
 
     IF /afl/config-export = abap_true.
       /afl/log_get_json 'E' /afl/log-export.

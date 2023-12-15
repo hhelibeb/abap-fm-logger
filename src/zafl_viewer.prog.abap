@@ -4,48 +4,50 @@ DATA: _log TYPE zafl_log.
 
 INCLUDE zafl_macros.
 
-SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-t00.
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-t00.
 
-SELECT-OPTIONS: s_fm FOR _log-fname NO INTERVALS NO-EXTENSION.
+SELECT-OPTIONS: s_fm FOR _log-fname NO INTERVALS NO-EXTENSION MEMORY ID LIB.
 SELECT-OPTIONS: s_guid FOR _log-guid.
 SELECT-OPTIONS: s_cf1 FOR _log-cust_field1.
 SELECT-OPTIONS: s_cf2 FOR _log-cust_field2.
 SELECT-OPTIONS: s_cf3 FOR _log-cust_field3.
+SELECT-OPTIONS: s_tc  FOR _log-time_cost.
 SELECT-OPTIONS: s_status FOR _log-status NO INTERVALS.
+SELECT-OPTIONS: s_msg FOR _log-message NO INTERVALS LOWER CASE.
 SELECTION-SCREEN END OF BLOCK b1.
 
-SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE TEXT-t01.
+SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE text-t01.
 SELECTION-SCREEN BEGIN OF LINE .
-SELECTION-SCREEN COMMENT 1(20) TEXT-t02 FOR FIELD p_dstart.
+SELECTION-SCREEN COMMENT 1(20) text-t02 FOR FIELD p_dstart.
 PARAMETERS: p_dstart TYPE edidc-upddat DEFAULT sy-datum.
-SELECTION-SCREEN COMMENT 35(20) TEXT-t03 FOR FIELD p_dend.
+SELECTION-SCREEN COMMENT 35(20) text-t03 FOR FIELD p_dend.
 PARAMETERS: p_dend TYPE edidc-upddat.
 SELECTION-SCREEN END OF LINE.
 
 SELECTION-SCREEN BEGIN OF LINE .
-SELECTION-SCREEN COMMENT 1(20) TEXT-t04 FOR FIELD p_tstart.
+SELECTION-SCREEN COMMENT 1(20) text-t04 FOR FIELD p_tstart.
 PARAMETERS: p_tstart TYPE edidc-updtim DEFAULT '000000'.
-SELECTION-SCREEN COMMENT 35(20) TEXT-t05 FOR FIELD p_tend.
+SELECTION-SCREEN COMMENT 35(20) text-t05 FOR FIELD p_tend.
 PARAMETERS: p_tend TYPE edidc-updtim DEFAULT '235959'.
 SELECTION-SCREEN END OF LINE.
 
 SELECTION-SCREEN END OF BLOCK b2.
 
 * Block: Number Of Hits.
-SELECTION-SCREEN BEGIN OF BLOCK no_of_hits WITH FRAME TITLE TEXT-t06.
+SELECTION-SCREEN BEGIN OF BLOCK no_of_hits WITH FRAME TITLE text-t06.
 SELECTION-SCREEN BEGIN OF LINE.
 SELECTION-SCREEN COMMENT 1(20) FOR FIELD pv_nofhs.
 PARAMETERS pv_nofhs TYPE i DEFAULT 1000 MODIF ID nh2.
 SELECTION-SCREEN POSITION 40.
 PARAMETERS pc_nhnl AS CHECKBOX USER-COMMAND nh1.
-SELECTION-SCREEN COMMENT 47(30) TEXT-t07 FOR FIELD pc_nhnl.
+SELECTION-SCREEN COMMENT 47(30) text-t07 FOR FIELD pc_nhnl.
 SELECTION-SCREEN END OF LINE.
 SELECTION-SCREEN END OF BLOCK no_of_hits.
 
 TYPES: ty_time_cond TYPE RANGE OF timestamp.
 
 TYPES BEGIN OF ty_log.
-INCLUDE TYPE zafl_log.
+        INCLUDE TYPE zafl_log.
 TYPES date TYPE sy-datum.
 TYPES time TYPE sy-uzeit.
 TYPES time_zone TYPE sy-zonlo.
@@ -137,7 +139,9 @@ FORM get_data.
       AND cust_field3 IN s_cf3
       AND status      IN s_status
       AND timestamp   IN s_ts
-.
+      AND time_cost   IN s_tc
+      AND message     IN s_msg.
+
 
   LOOP AT gt_log ASSIGNING FIELD-SYMBOL(<fs_log>)
                      WHERE timestamp IS NOT INITIAL.
@@ -173,8 +177,8 @@ FORM get_time_cond USING sdate  TYPE dats
     start_date = end_date.
   ENDIF.
 
-  DATA(start_timestamp) = start_date && stime.
-  DATA(end_timestamp)   = end_date && etime.
+  CONVERT DATE start_date TIME stime INTO TIME STAMP DATA(start_timestamp) TIME ZONE sy-zonlo.
+  CONVERT DATE end_date TIME etime INTO TIME STAMP DATA(end_timestamp) TIME ZONE sy-zonlo.
 
   result = VALUE #( sign = 'I' option = 'BT' (
       low  = start_timestamp
@@ -191,6 +195,9 @@ ENDFORM.
 *  <--  p2        text
 *----------------------------------------------------------------------*
 FORM display.
+
+  DATA(lv_records) = lines( gt_log ).
+  SET TITLEBAR 'SELRES' WITH lv_records.
 
   TRY.
       cl_salv_table=>factory(
@@ -239,7 +246,7 @@ FORM display.
   PERFORM set_column USING ''  lr_cols 'DATE'        'Date' .
   PERFORM set_column USING ''  lr_cols 'TIME'        'Time' .
   PERFORM set_column USING ''  lr_cols 'TIME_ZONE'   'Zone' .
-  PERFORM set_column USING ''  lr_cols 'TIME_COST'   'Time Cost' .
+  PERFORM set_column USING ''  lr_cols 'TIME_COST'   'Execution time' .
   PERFORM set_column USING ''  lr_cols 'UNAME'       'User' .
   PERFORM set_column USING ''  lr_cols 'MESSAGE'     'Message' .
   PERFORM set_column USING 'X' lr_cols 'IMPORT'      'Import Data' .
