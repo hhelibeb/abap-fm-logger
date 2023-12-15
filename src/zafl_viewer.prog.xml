@@ -1796,6 +1796,12 @@
       <INT_NOTE>SALV_TABLE_STANDARD</INT_NOTE>
      </RSMPE_ATRT>
     </DOC>
+    <TIT>
+     <RSMPE_TITT>
+      <CODE>SELRES</CODE>
+      <TEXT>AFL Selection Result: &amp;1 records found.</TEXT>
+     </RSMPE_TITT>
+    </TIT>
    </CUA>
    <TPOOL>
     <item>
@@ -1865,6 +1871,12 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>PC_NHNL</KEY>
+     <ENTRY>No limitation</ENTRY>
+     <LENGTH>21</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>PV_NOFHS</KEY>
      <ENTRY>Number of Hits</ENTRY>
      <LENGTH>22</LENGTH>
@@ -1925,9 +1937,21 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>S_MSG</KEY>
+     <ENTRY>Message</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>S_STATUS</KEY>
      <ENTRY>Status</ENTRY>
      <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_TC</KEY>
+     <ENTRY>Execution time</ENTRY>
+     <LENGTH>22</LENGTH>
     </item>
    </TPOOL>
    <I18N_TPOOL>
@@ -1983,9 +2007,33 @@
        <LENGTH>18</LENGTH>
       </item>
       <item>
+       <ID>I</ID>
+       <KEY>T06</KEY>
+       <ENTRY>命中数</ENTRY>
+       <LENGTH>24</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T07</KEY>
+       <ENTRY>无限制</ENTRY>
+       <LENGTH>23</LENGTH>
+      </item>
+      <item>
        <ID>R</ID>
        <ENTRY>ABAP FM Log Viewer</ENTRY>
        <LENGTH>70</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PC_NHNL</KEY>
+       <ENTRY>无限制</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>PV_NOFHS</KEY>
+       <ENTRY>命中数量</ENTRY>
+       <LENGTH>38</LENGTH>
       </item>
       <item>
        <ID>S</ID>

@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    program for:   TABLEFRAME_ZAFL_CONFIG
-*   generation date: 2020.08.06 at 19:33:12
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION TABLEFRAME_ZAFL_CONFIG        .
 
