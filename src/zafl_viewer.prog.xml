@@ -1883,6 +1883,12 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>PV_REG</KEY>
+     <ENTRY>Payload string is REGEX</ENTRY>
+     <LENGTH>31</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>P_DEND</KEY>
      <ENTRY>End Date</ENTRY>
      <LENGTH>16</LENGTH>
@@ -1892,6 +1898,12 @@
      <KEY>P_DSTART</KEY>
      <ENTRY>Start Date</ENTRY>
      <LENGTH>18</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_LAST</KEY>
+     <ENTRY>Only last record by key</ENTRY>
+     <LENGTH>31</LENGTH>
     </item>
     <item>
      <ID>S</ID>
@@ -1939,6 +1951,12 @@
      <ID>S</ID>
      <KEY>S_MSG</KEY>
      <ENTRY>Message</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>S_PLOAD</KEY>
+     <ENTRY>Payload</ENTRY>
      <LENGTH>15</LENGTH>
     </item>
     <item>
@@ -2037,6 +2055,12 @@
       </item>
       <item>
        <ID>S</ID>
+       <KEY>PV_REG</KEY>
+       <ENTRY>Payload搜索使用正则表达式</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
        <KEY>P_DEND</KEY>
        <ENTRY>结束日期</ENTRY>
        <LENGTH>38</LENGTH>
@@ -2045,6 +2069,12 @@
        <ID>S</ID>
        <KEY>P_DSTART</KEY>
        <ENTRY>开始日期</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_LAST</KEY>
+       <ENTRY>相同key数据只显示最后一条</ENTRY>
        <LENGTH>38</LENGTH>
       </item>
       <item>
@@ -2091,8 +2121,26 @@
       </item>
       <item>
        <ID>S</ID>
+       <KEY>S_MSG</KEY>
+       <ENTRY>消息</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_PLOAD</KEY>
+       <ENTRY>Payload</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
        <KEY>S_STATUS</KEY>
        <ENTRY>状态</ENTRY>
+       <LENGTH>38</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_TC</KEY>
+       <ENTRY>运行时长</ENTRY>
        <LENGTH>38</LENGTH>
       </item>
      </TEXTPOOL>

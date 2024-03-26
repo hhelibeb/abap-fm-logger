@@ -1,12 +1,13 @@
 REPORT zafl_viewer.
 
 DATA: _log TYPE zafl_log.
+DATA: _sstring TYPE text255.
 
 INCLUDE zafl_macros.
 
 SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-t00.
 
-SELECT-OPTIONS: s_fm FOR _log-fname NO INTERVALS NO-EXTENSION MEMORY ID LIB.
+SELECT-OPTIONS: s_fm FOR _log-fname NO INTERVALS NO-EXTENSION MEMORY ID lib.
 SELECT-OPTIONS: s_guid FOR _log-guid.
 SELECT-OPTIONS: s_cf1 FOR _log-cust_field1.
 SELECT-OPTIONS: s_cf2 FOR _log-cust_field2.
@@ -14,6 +15,8 @@ SELECT-OPTIONS: s_cf3 FOR _log-cust_field3.
 SELECT-OPTIONS: s_tc  FOR _log-time_cost.
 SELECT-OPTIONS: s_status FOR _log-status NO INTERVALS.
 SELECT-OPTIONS: s_msg FOR _log-message NO INTERVALS LOWER CASE.
+SELECT-OPTIONS: s_pload  FOR _sstring NO INTERVALS NO-EXTENSION.
+PARAMETERS: pv_reg AS CHECKBOX.
 SELECTION-SCREEN END OF BLOCK b1.
 
 SELECTION-SCREEN BEGIN OF BLOCK b2 WITH FRAME TITLE text-t01.
@@ -42,6 +45,7 @@ SELECTION-SCREEN POSITION 40.
 PARAMETERS pc_nhnl AS CHECKBOX USER-COMMAND nh1.
 SELECTION-SCREEN COMMENT 47(30) text-t07 FOR FIELD pc_nhnl.
 SELECTION-SCREEN END OF LINE.
+PARAMETERS: p_last TYPE xfeld AS CHECKBOX.
 SELECTION-SCREEN END OF BLOCK no_of_hits.
 
 TYPES: ty_time_cond TYPE RANGE OF timestamp.
@@ -120,7 +124,12 @@ START-OF-SELECTION.
 *----------------------------------------------------------------------*
 FORM get_data.
 
+  TYPES: BEGIN OF ty_fields,
+           fname TYPE fieldname,
+         END OF ty_fields.
 
+  DATA: lt_fieldlist TYPE STANDARD TABLE OF ty_fields.
+  DATA: lv_limit TYPE i.
   DATA: s_ts TYPE ty_time_cond.
 
   PERFORM get_time_cond USING p_dstart
@@ -128,10 +137,14 @@ FORM get_data.
                               p_tstart
                               p_tend
                               s_ts.
-
+  IF pc_nhnl = abap_true.
+    lv_limit = 0.
+  ELSE.
+    lv_limit = pv_nofhs.
+  ENDIF.
   SELECT * FROM zafl_log
     INTO CORRESPONDING FIELDS OF TABLE gt_log
-    UP TO pv_nofhs ROWS
+    UP TO lv_limit ROWS
     WHERE guid        IN s_guid
       AND fname       IN s_fm
       AND cust_field1 IN s_cf1
@@ -142,9 +155,43 @@ FORM get_data.
       AND time_cost   IN s_tc
       AND message     IN s_msg.
 
+  IF s_pload[] IS NOT INITIAL.
+    READ TABLE s_pload INDEX 1 INTO s_pload.
+    lt_fieldlist = VALUE #(
+     ( fname = 'IMPORT'     )
+     ( fname = 'EXPORT'     )
+     ( fname = 'TABLE_IN'   )
+     ( fname = 'TABLE_OUT'  )
+     ( fname = 'CHANGE_IN'  )
+     ( fname = 'CHANGE_OUT' )
+    ).
+  ENDIF.
 
+  DATA: lv_found TYPE xfeld.
   LOOP AT gt_log ASSIGNING FIELD-SYMBOL(<fs_log>)
                      WHERE timestamp IS NOT INITIAL.
+    CLEAR: lv_found.
+    LOOP AT lt_fieldlist REFERENCE INTO DATA(lr_field).
+      ASSIGN COMPONENT lr_field->fname OF STRUCTURE <fs_log> TO FIELD-SYMBOL(<payload>).
+      IF sy-subrc = 0 AND <payload> IS NOT INITIAL.
+        IF pv_reg IS INITIAL.
+          IF contains( val = <payload> sub = s_pload-low ).
+            lv_found = abap_true.
+            EXIT.
+          ENDIF.
+        ELSE.
+          IF contains( val = <payload> regex = s_pload-low ).
+            lv_found = abap_true.
+            EXIT.
+          ENDIF.
+        ENDIF.
+      ENDIF.
+    ENDLOOP.
+
+    IF s_pload[] IS NOT INITIAL AND lv_found <> abap_true.
+      DELETE gt_log.
+      CONTINUE.
+    ENDIF.
 
     <fs_log>-time_zone = sy-zonlo.
 
@@ -154,6 +201,13 @@ FORM get_data.
             TIME <fs_log>-time.
 
   ENDLOOP.
+
+  IF p_last = abap_true.
+    SORT gt_log BY fname cust_field1 cust_field2 cust_field3 timestamp DESCENDING.
+    DELETE ADJACENT DUPLICATES FROM gt_log COMPARING fname cust_field1 cust_field2 cust_field3.
+  ENDIF.
+
+  SORT gt_log BY date time.
 
 ENDFORM.
 
@@ -195,6 +249,9 @@ ENDFORM.
 *  <--  p2        text
 *----------------------------------------------------------------------*
 FORM display.
+
+  DATA: lr_layout TYPE REF TO cl_salv_layout,
+        ls_key    TYPE salv_s_layout_key.
 
   DATA(lv_records) = lines( gt_log ).
   SET TITLEBAR 'SELRES' WITH lv_records.
@@ -256,6 +313,12 @@ FORM display.
   PERFORM set_column USING 'X' lr_cols 'TABLE_IN'    'Tables In ' .
   PERFORM set_column USING 'X' lr_cols 'TABLE_OUT'   'Tables Out' .
 
+  lr_layout = gr_alv->get_layout( ).
+
+  ls_key-report = sy-repid.
+  lr_layout->set_key( ls_key ).
+  lr_layout->set_default( abap_true ).
+  lr_layout->set_save_restriction( ).
 
   DATA(lr_events) = gr_alv->get_event( ).
 
