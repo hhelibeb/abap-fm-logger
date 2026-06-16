@@ -168,7 +168,7 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
       RETURN.
     ENDIF.
 
-    SELECT funcname, paramtype, pposition, parameter, structure
+    SELECT funcname, paramtype, pposition, parameter, structure, type
       FROM fupararef
       WHERE funcname = @record-fname
       INTO TABLE @DATA(parameters_tab).
@@ -185,9 +185,9 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
     ENDLOOP.
 
     IF temp_dd04l IS NOT INITIAL.
-      SELECT domname FROM dd04l
+      SELECT rollname AS domname FROM dd04l
         FOR ALL ENTRIES IN @temp_dd04l
-        WHERE domname = @temp_dd04l-domname
+        WHERE rollname = @temp_dd04l-domname
         INTO TABLE @DATA(data_elements).
     ENDIF.
 
@@ -241,9 +241,13 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
       ENDIF.
 
       IF ptab_line-kind = abap_func_tables.
-        DATA(structure_type) = CAST cl_abap_structdescr( cl_abap_datadescr=>describe_by_name( <parameter>-structure ) ).
-        DATA(table_type) = CAST cl_abap_tabledescr( cl_abap_tabledescr=>create( structure_type ) ).
-        CREATE DATA data_ref TYPE HANDLE table_type.
+        IF <parameter>-type = ''.
+          DATA(structure_type) = CAST cl_abap_structdescr( cl_abap_datadescr=>describe_by_name( <parameter>-structure ) ).
+          DATA(table_type) = CAST cl_abap_tabledescr( cl_abap_tabledescr=>create( structure_type ) ).
+          CREATE DATA data_ref TYPE HANDLE table_type.
+        ELSE.
+          CREATE DATA data_ref TYPE (<parameter>-structure).
+        ENDIF.
         ASSIGN <parameter_val>->* TO <temp>.
       ENDIF.
 
@@ -252,7 +256,13 @@ CLASS ZCL_AFL_UTILITIES IMPLEMENTATION.
       ENDIF.
 
       IF line_exists( data_elements[ domname = <parameter>-structure ] ).
-        <data_ref> = <temp>.
+        DATA(data_type) = cl_abap_typedescr=>describe_by_name( <parameter>-structure ).
+        IF data_type->type_kind = cl_abap_typedescr=>typekind_date.
+          <data_ref> = replace( val = <temp> sub = '-' with = '' occ = 0 ).
+        ELSE.
+          <data_ref> = <temp>.
+        ENDIF.
+
       ELSE.
         DATA(json_temp) = zcl_afl_json=>serialize( data = <parameter_val> ).
         zcl_afl_json=>deserialize( EXPORTING json = json_temp CHANGING data = <data_ref> ).
