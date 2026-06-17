@@ -33,6 +33,7 @@ START-OF-SELECTION.
 
     ts_cond = cl_abap_tstmp=>subtractsecs( tstmp = ts secs = <config>-retention_days * 86400 ).
 
+    CLEAR: s_status.
     IF <config>-special_status IS NOT INITIAL.
       s_status = VALUE #( ( sign = 'I' option = 'EQ' low = <config>-special_status ) ).
     ENDIF.
