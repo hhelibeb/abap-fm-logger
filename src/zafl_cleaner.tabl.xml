@@ -83,6 +83,20 @@
      <DDTEXT>ZAFL_CONFIG</DDTEXT>
     </DD08V>
    </DD08V_TABLE>
+   <I18N_LANGS>
+    <LANGU>S</LANGU>
+    <LANGU>c</LANGU>
+   </I18N_LANGS>
+   <DD02_TEXTS>
+    <item>
+     <DDLANGUAGE>S</DDLANGUAGE>
+     <DDTEXT>ABAP FM Logger History Cleaner Configuration</DDTEXT>
+    </item>
+    <item>
+     <DDLANGUAGE>c</DDLANGUAGE>
+     <DDTEXT>ABAP FM Logger History Cleaner Configuration</DDTEXT>
+    </item>
+   </DD02_TEXTS>
    <TABL_EXTRAS>
     <TDDAT>
      <TABNAME>ZAFL_CLEANER</TABNAME>

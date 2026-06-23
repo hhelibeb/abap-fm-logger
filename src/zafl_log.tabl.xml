@@ -144,6 +144,20 @@
      <DDTEXT>Change Output</DDTEXT>
     </DD03P>
    </DD03P_TABLE>
+   <I18N_LANGS>
+    <LANGU>S</LANGU>
+    <LANGU>c</LANGU>
+   </I18N_LANGS>
+   <DD02_TEXTS>
+    <item>
+     <DDLANGUAGE>S</DDLANGUAGE>
+     <DDTEXT>Data Records</DDTEXT>
+    </item>
+    <item>
+     <DDLANGUAGE>c</DDLANGUAGE>
+     <DDTEXT>Data Records</DDTEXT>
+    </item>
+   </DD02_TEXTS>
   </asx:values>
  </asx:abap>
 </abapGit>

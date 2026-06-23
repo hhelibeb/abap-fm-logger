@@ -5,6 +5,7 @@
    <DD04V>
     <ROLLNAME>ZAFL_CUST_FIELD3</ROLLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
+    <DOMNAME>TEXT40</DOMNAME>
     <HEADLEN>55</HEADLEN>
     <SCRLEN1>10</SCRLEN1>
     <SCRLEN2>20</SCRLEN2>
@@ -15,10 +16,30 @@
     <SCRTEXT_M>Custom Field</SCRTEXT_M>
     <SCRTEXT_L>Custom Field</SCRTEXT_L>
     <DTELMASTER>E</DTELMASTER>
-    <DATATYPE>CHAR</DATATYPE>
-    <LENG>000040</LENG>
-    <OUTPUTLEN>000040</OUTPUTLEN>
+    <REFKIND>D</REFKIND>
    </DD04V>
+   <I18N_LANGS>
+    <LANGU>S</LANGU>
+    <LANGU>c</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>S</DDLANGUAGE>
+     <DDTEXT>Custom Field</DDTEXT>
+     <REPTEXT>Custom Field</REPTEXT>
+     <SCRTEXT_S>Cus. Field</SCRTEXT_S>
+     <SCRTEXT_M>Custom Field</SCRTEXT_M>
+     <SCRTEXT_L>Custom Field</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>c</DDLANGUAGE>
+     <DDTEXT>Custom Field</DDTEXT>
+     <REPTEXT>Custom Field</REPTEXT>
+     <SCRTEXT_S>Cus. Field</SCRTEXT_S>
+     <SCRTEXT_M>Custom Field</SCRTEXT_M>
+     <SCRTEXT_L>Custom Field</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
   </asx:values>
  </asx:abap>
 </abapGit>

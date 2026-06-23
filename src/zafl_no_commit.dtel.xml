@@ -18,6 +18,28 @@
     <DTELMASTER>E</DTELMASTER>
     <REFKIND>D</REFKIND>
    </DD04V>
+   <I18N_LANGS>
+    <LANGU>S</LANGU>
+    <LANGU>c</LANGU>
+   </I18N_LANGS>
+   <DD04_TEXTS>
+    <item>
+     <DDLANGUAGE>S</DDLANGUAGE>
+     <DDTEXT>No Commit aflter saving log</DDTEXT>
+     <REPTEXT>No Commit</REPTEXT>
+     <SCRTEXT_S>No Commit</SCRTEXT_S>
+     <SCRTEXT_M>No Commit</SCRTEXT_M>
+     <SCRTEXT_L>No Commit</SCRTEXT_L>
+    </item>
+    <item>
+     <DDLANGUAGE>c</DDLANGUAGE>
+     <DDTEXT>No Commit aflter saving log</DDTEXT>
+     <REPTEXT>No Commit</REPTEXT>
+     <SCRTEXT_S>No Commit</SCRTEXT_S>
+     <SCRTEXT_M>No Commit</SCRTEXT_M>
+     <SCRTEXT_L>No Commit</SCRTEXT_L>
+    </item>
+   </DD04_TEXTS>
   </asx:values>
  </asx:abap>
 </abapGit>
