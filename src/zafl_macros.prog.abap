@@ -10,7 +10,7 @@ DEFINE /afl/log_init.
   DATA: /afl/table_structure_type TYPE REF TO cl_abap_structdescr,
         /afl/table_type TYPE REF TO cl_abap_tabledescr.
 
-  DATA: true_fieldname TYPE string.
+  DATA: /afl/true_fieldname TYPE string.
 
   FIELD-SYMBOLS: </afl/parameter_data>       TYPE any,
                  </afl/parameter_data_field> TYPE any,
@@ -182,8 +182,8 @@ DEFINE /afl/log_get_table_json.
     ASSIGN /afl/parameter_data->* TO </afl/parameter_data>.
 
     LOOP AT /afl/comp_tab ASSIGNING </alf/comp>.
-      true_fieldname = </alf/comp>-name && '[]'.
-      ASSIGN (true_fieldname) TO </afl/parameter>.
+      /afl/true_fieldname = </alf/comp>-name && '[]'.
+      ASSIGN (/afl/true_fieldname) TO </afl/parameter>.
       ASSIGN COMPONENT </alf/comp>-name OF STRUCTURE </afl/parameter_data> TO </afl/parameter_data_field>.
       </afl/parameter_data_field> = </afl/parameter>.
     ENDLOOP.
