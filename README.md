@@ -1,3 +1,5 @@
+[中文](./README.zh-CN.md) | **English**
+
 # abap-fm-logger
 A logger for function module (RFC)
 
@@ -35,11 +37,17 @@ FUNCTION z_fm.
 **optional, you can save a status code and message text for search.
   /afl/set_status 'S' 'message'.
 
-**save logs. It should be always on the bottom of the FUNCTION.
+**save logs. It should be called before every exit point of the FUNCTION.
   /afl/save.
 
 ENDFUNCTION.
 ```
+
+Tip: to avoid calling `/afl/save` at every exit point when the real logic has
+multiple returns, you can sink the business logic into a separate internal FM
+(e.g. `Z_FM_INT`) and keep the logged FM as a single-exit shell that calls it
+— then one `/afl/save` at the end suffices.
+
 ## Configuration
 Table ```ZAFL_CONFIG```  allows for basic configuration.
 
@@ -58,3 +66,6 @@ Table ```ZAFL_CONFIG```  allows for basic configuration.
 
 ## Log Cleaner
 Schedule the report ```ZAFL_HISTORY_CLEANER``` as a job to delete history log.
+
+## ⚠️ Upgrade Reminder
+If you have installed a previous version, when installing a new version please check whether your installed table `ZAFL_LOG` differs from the latest version. Differences may arise from: 1) you have manually modified the local `ZAFL_LOG`, or 2) the new version has extended new fields or widened existing field lengths. If differences exist, please manually review the changes to avoid data issues.
