@@ -9,17 +9,20 @@ DEFINE /afl/log_init.
         /afl/parameter_data TYPE REF TO data.
   DATA: /afl/table_structure_type TYPE REF TO cl_abap_structdescr,
         /afl/table_type TYPE REF TO cl_abap_tabledescr.
+  DATA: /afl/datatype TYPE REF TO cl_abap_datadescr.
 
   DATA: /afl/true_fieldname TYPE string.
 
   FIELD-SYMBOLS: </afl/parameter_data>       TYPE any,
                  </afl/parameter_data_field> TYPE any,
-                 </afl/parameter>            TYPE any.
+                 </afl/parameter>            TYPE any,
+                 </afl/parameter_pont>       TYPE any.
 
 
   DATA: /afl/callstack TYPE abap_callstack.
 
   DATA: /afl/log TYPE zafl_log.
+  DATA: /afl/descr_ref1 TYPE REF TO cl_abap_typedescr.
 
   GET TIME.
 
@@ -84,8 +87,42 @@ DEFINE /afl/log_get_json.
 
   LOOP AT /afl/parameters_tab ASSIGNING </alf/parameters> WHERE paramtype = &1.
     /afl/comp_wa-name = </alf/parameters>-parameter.
-    /afl/comp_wa-type ?= cl_abap_datadescr=>describe_by_name( </alf/parameters>-structure ).
+
+    ASSIGN (/afl/comp_wa-name) TO </afl/parameter_pont>.
+    IF sy-subrc = 0.
+      /afl/datatype ?= cl_abap_typedescr=>describe_by_data( </afl/parameter_pont> ).
+    ELSE.
+      CONTINUE. " ASSIGN failed - skip parameter
+    ENDIF.
+
+    CASE /afl/datatype->type_kind.
+      WHEN cl_abap_typedescr=>typekind_dref.   " Data reference
+        IF </afl/parameter_pont> IS NOT INITIAL.
+          /afl/comp_wa-type ?= cl_abap_datadescr=>describe_by_data_ref( </afl/parameter_pont> ).
+        ELSE.
+          CONTINUE. " Empty reference - describe_by_data_ref would dump, skip
+        ENDIF.
+      WHEN cl_abap_typedescr=>typekind_oref.   " Object reference - skip
+        /afl/unassign_par_pont.
+        CONTINUE.
+      WHEN OTHERS.
+        " Wrap in exception to avoid dumps on abstract or missing types
+        CALL METHOD cl_abap_typedescr=>describe_by_name(
+          EXPORTING
+            p_name         = </alf/parameters>-structure
+          RECEIVING
+            p_descr_ref    = /afl/descr_ref1
+          EXCEPTIONS
+            type_not_found = 1 ).
+        IF sy-subrc <> 0.
+          CONTINUE.
+        ELSE.
+          /afl/comp_wa-type ?= /afl/descr_ref1.
+        ENDIF.
+    ENDCASE.
+
     APPEND /afl/comp_wa TO /afl/comp_tab.
+    /afl/unassign_par_pont.
   ENDLOOP.
 
   IF /afl/comp_tab IS NOT INITIAL.
@@ -96,12 +133,34 @@ DEFINE /afl/log_get_json.
     ASSIGN /afl/parameter_data->* TO </afl/parameter_data>.
 
     LOOP AT /afl/comp_tab ASSIGNING </alf/comp>.
-      ASSIGN (</alf/comp>-name) TO </afl/parameter>.
+      /afl/unassign_par_pont.
+      ASSIGN (</alf/comp>-name) TO </afl/parameter_pont>.
+      IF sy-subrc = 0.
+        /afl/datatype ?= cl_abap_typedescr=>describe_by_data( </afl/parameter_pont> ).
+      ELSE.
+        CONTINUE.
+      ENDIF.
+      IF /afl/datatype->type_kind = cl_abap_typedescr=>typekind_dref. " Dereference before copy
+        ASSIGN </afl/parameter_pont>->* TO </afl/parameter>.
+        IF sy-subrc <> 0.
+          CONTINUE.
+        ENDIF.
+      ELSE.
+        ASSIGN (</alf/comp>-name) TO </afl/parameter>.
+      ENDIF.
       ASSIGN COMPONENT </alf/comp>-name OF STRUCTURE </afl/parameter_data> TO </afl/parameter_data_field>.
       </afl/parameter_data_field> = </afl/parameter>.
     ENDLOOP.
 
     &2 = /ui2/cl_json=>serialize( data = </afl/parameter_data> ).
+  ENDIF.
+
+END-OF-DEFINITION.
+
+DEFINE /afl/unassign_par_pont.
+
+  IF </afl/parameter_pont> IS ASSIGNED.
+    UNASSIGN </afl/parameter_pont>.
   ENDIF.
 
 END-OF-DEFINITION.
