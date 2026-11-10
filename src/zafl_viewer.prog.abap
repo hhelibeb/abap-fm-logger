@@ -281,8 +281,10 @@ FORM display.
   DATA: lr_functions TYPE REF TO cl_salv_functions.
 
   IF zcl_afl_utilities=>get_distinct_count( tab_data = gt_log field_name = 'FNAME' ) = 1.
+    READ TABLE gt_log INTO DATA(ls_log) INDEX 1.
     SELECT SINGLE cust_name1, cust_name2, cust_name3 FROM zafl_config
-      INTO @DATA(config).
+      INTO @DATA(config)
+      WHERE fname = @ls_log-fname.
   ENDIF.
 
   IF config IS INITIAL.
